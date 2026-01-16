@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIMS | Autonomous Data Engineering</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        :root {
+            /* Glassmorphism Variables for LIGHT Mode over Dark Video */
+            --glass-surface: rgba(255, 255, 255, 0.60);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --glass-highlight: rgba(255, 255, 255, 0.8);
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+        /* 1. Background Video Styling */
+        .video-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -50;
+            overflow: hidden;
+        }
+
+        .video-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* The "Light Mode" Frosting Overlay */
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            /* This white layer makes the site "Light Mode" while letting video motion bleed through */
+            background: rgba(255, 255, 255, 0.50); 
+            backdrop-filter: blur(2px); /* Blurs your video slightly for aesthetic */
+            z-index: 1;
+        }
+
+        /* 2. Glass Cards */
+        .glass {
+            background: var(--glass-surface);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+        }
+
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.8); /* Dark glass for terminal */
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        /* 3. Animations */
+        .reveal-y {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        /* Scrollbar for Terminal */
+        .terminal-scroll::-webkit-scrollbar { width: 6px; }
+        .terminal-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
+        .terminal-scroll::-webkit-scrollbar-track { background: transparent; }
+
+    </style>
+</head>
+<body class="antialiased selection:bg-indigo-500 selection:text-white">
+
+    <div class="video-wrapper">
+        <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;">
+            <source src="file:///D:/aadhar/247741.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <nav class="fixed w-full z-50 top-0 pt-6 px-6">
+        <div class="max-w-6xl mx-auto glass rounded-full px-6 py-3 flex justify-between items-center shadow-sm hover:shadow-md transition-shadow duration-300">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center text-white shadow-lg shadow-indigo-600/30">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i>
+                </div>
+                <span class="font-bold text-lg tracking-tight text-slate-800">AIMS<span class="text-indigo-600">.ai</span></span>
+            </div>
+            
+            <div class="hidden md:flex gap-8 text-sm font-medium text-slate-600">
+                <a href="#demo" class="hover:text-indigo-600 transition-colors">Live Demo</a>
+                <a href="#agents" class="hover:text-indigo-600 transition-colors">Agents</a>
+                <a href="#docs" class="hover:text-indigo-600 transition-colors">Docs</a>
+            </div>
+
+            <button class="bg-slate-900 text-white text-xs font-semibold px-5 py-2.5 rounded-full hover:bg-slate-800 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+                Download CLI
+            </button>
+        </div>
+    </nav>
+
+    <main class="relative z-10 pt-40 pb-20 px-6 min-h-screen flex items-center">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+            
+            <div class="space-y-8">
+                <div class="reveal-y inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/60 border border-white/80 shadow-sm text-xs font-semibold text-indigo-600 backdrop-blur-sm">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                    </span>
+                    Operational Status: Online
+                </div>
+
+                <h1 class="reveal-y text-6xl md:text-7xl font-bold tracking-tight leading-[1.1] text-slate-900">
+                    Data engineering, <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">reimagined.</span>
+                </h1>
+
+                <p class="reveal-y text-lg text-slate-600 max-w-lg leading-relaxed font-light">
+                    Meet <strong>Architect</strong>, <strong>Engineer</strong>, and <strong>Observer</strong>. 
+                    Three autonomous AI agents that clean, analyze, and validate your data pipelines. 
+                    <br><span class="text-sm font-medium text-slate-400 mt-2 block">Python-native • Privacy-first • Offline-ready</span>
+                </p>
+
+                <div class="reveal-y flex flex-wrap gap-4 pt-2">
+                    <button class="bg-indigo-600 text-white px-8 py-4 rounded-2xl font-medium hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-600/20 flex items-center gap-2 group">
+                        <i data-lucide="terminal" class="w-4 h-4 group-hover:rotate-12 transition-transform"></i>
+                        Initialize System
+                    </button>
+                    <div class="glass px-6 py-4 rounded-2xl flex items-center gap-3 text-sm font-mono text-slate-600 cursor-pointer hover:bg-white/80 transition-colors border-white/60">
+                        <span class="text-indigo-500 font-bold">$</span> pip install aims-core
+                        <i data-lucide="copy" class="w-3 h-3 ml-2 text-slate-400"></i>
+                    </div>
+                </div>
+
+                <div class="reveal-y flex items-center gap-8 pt-8 border-t border-slate-200/50">
+                    <div>
+                        <div class="text-3xl font-bold text-slate-900">165k</div>
+                        <div class="text-[10px] uppercase tracking-wider font-semibold text-slate-500">Rows Processed</div>
+                    </div>
+                    <div class="h-8 w-px bg-slate-200"></div>
+                    <div>
+                        <div class="text-3xl font-bold text-slate-900">98/100</div>
+                        <div class="text-[10px] uppercase tracking-wider font-semibold text-slate-500">ML Readiness</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal-y relative group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+                
+                <div class="glass-dark rounded-2xl shadow-2xl overflow-hidden relative">
+                    <div class="bg-slate-900/50 px-4 py-3 flex items-center gap-2 border-b border-white/5">
+                        <div class="flex gap-1.5">
+                            <div class="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
+                            <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></div>
+                            <div class="w-2.5 h-2.5 rounded-full bg-green-500/80"></div>
+                        </div>
+                        <div class="flex-1 text-center text-[10px] font-mono text-slate-400 opacity-60">
+                            python — aims_cli.py — 80x24
+                        </div>
+                    </div>
+
+                    <div class="p-6 font-mono text-xs md:text-sm h-[420px] overflow-y-auto terminal-scroll relative" id="terminal-body">
+                        </div>
+                    
+                    <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent pointer-events-none"></div>
+                </div>
+                
+                <div class="absolute -right-6 top-10 glass px-4 py-2 rounded-lg shadow-lg border-white/50 animate-bounce" style="animation-duration: 3s;">
+                    <div class="flex items-center gap-2">
+                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                        <span class="text-xs font-semibold text-slate-700">Agents Active</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section class="py-24 px-6 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-6">
+                
+                <div class="glass p-8 rounded-3xl hover:-translate-y-2 transition-all duration-500 group border-white/60">
+                    <div class="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="map" class="w-6 h-6 text-blue-600"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Architect Agent</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed mb-4">
+                        Scans CSV metadata. Automatically detects domains (e.g. Water, Finance) and drafts a cleaning strategy.
+                    </p>
+                    <div class="h-px w-full bg-gradient-to-r from-blue-200 to-transparent"></div>
+                    <div class="mt-4 flex gap-2">
+                        <span class="text-[10px] font-mono bg-white/50 px-2 py-1 rounded text-slate-500 border border-white">Strategy</span>
+                        <span class="text-[10px] font-mono bg-white/50 px-2 py-1 rounded text-slate-500 border border-white">Privacy</span>
+                    </div>
+                </div>
+
+                <div class="glass p-8 rounded-3xl hover:-translate-y-2 transition-all duration-500 group border-white/60">
+                    <div class="w-12 h-12 bg-purple-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="cpu" class="w-6 h-6 text-purple-600"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Engineer Agent</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed mb-4">
+                        The heavy lifter. Executes 13 operations including Median Imputation, One-Hot Encoding, and Outlier Capping.
+                    </p>
+                    <div class="h-px w-full bg-gradient-to-r from-purple-200 to-transparent"></div>
+                    <div class="mt-4 flex gap-2">
+                        <span class="text-[10px] font-mono bg-white/50 px-2 py-1 rounded text-slate-500 border border-white">Pandas</span>
+                        <span class="text-[10px] font-mono bg-white/50 px-2 py-1 rounded text-slate-500 border border-white">Sklearn</span>
+                    </div>
+                </div>
+
+                <div class="glass p-8 rounded-3xl hover:-translate-y-2 transition-all duration-500 group border-white/60">
+                    <div class="w-12 h-12 bg-emerald-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="scan-eye" class="w-6 h-6 text-emerald-600"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Observer Agent</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed mb-4">
+                        Validates integrity post-cleaning. Assigns a final "ML Readiness Score" so you can train models with confidence.
+                    </p>
+                    <div class="h-px w-full bg-gradient-to-r from-emerald-200 to-transparent"></div>
+                    <div class="mt-4 flex gap-2">
+                        <span class="text-[10px] font-mono bg-white/50 px-2 py-1 rounded text-slate-500 border border-white">Audit</span>
+                        <span class="text-[10px] font-mono bg-white/50 px-2 py-1 rounded text-slate-500 border border-white">Score</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script>
+        lucide.createIcons();
+
+        // 1. Reveal Animation
+        gsap.registerPlugin(ScrollTrigger);
+        const reveals = document.querySelectorAll('.reveal-y');
+        reveals.forEach((el, i) => {
+            gsap.to(el, {
+                y: 0, opacity: 1, duration: 1, delay: i * 0.1, ease: "power3.out"
+            });
+        });
+
+        // 2. Terminal Typewriter Logic (Based on your Python Code)
+        const termBody = document.getElementById('terminal-body');
+        const logs = [
+            { t: 'cmd', msg: '> python aims_cli.py --auto' },
+            { t: 'sys', msg: '[SYSTEM] Loading environment variables...' },
+            { t: 'sys', msg: '[SYSTEM] Initializing OpenRouter API connection...' },
+            { t: 'info', msg: '✓ Dataset Loaded: "India_Water_Database.csv"' },
+            { t: 'arch', msg: '[ARCHITECT] Detecting domain structure...' },
+            { t: 'success', msg: '📍 Domain Identity: WATER (98% Confidence)' },
+            { t: 'arch', msg: '[ARCHITECT] Strategy: Median Imputation + Region Mode Fill' },
+            { t: 'warn', msg: '⚠ Privacy Alert: Location data detected. Masking PII.' },
+            { t: 'eng', msg: '[ENGINEER] Executing Transformation Plan (13 Ops)...' },
+            { t: 'op', msg: '   • Step 1: impute_median(depth) ... DONE' },
+            { t: 'op', msg: '   • Step 2: impute_mode(district) ... DONE' },
+            { t: 'op', msg: '   • Step 3: cap_outliers(IQR method) ... DONE' },
+            { t: 'op', msg: '   • Step 4: one_hot_encode(source) ... DONE' },
+            { t: 'obs', msg: '[OBSERVER] Validating data integrity...' },
+            { t: 'success', msg: '✓ 165,627 Rows Preserved. 0 Nulls Remaining.' },
+            { t: 'final', msg: '📊 Final ML Readiness Score: 98/100' },
+            { t: 'cmd', msg: '> _' }
+        ];
+
+        let index = 0;
+        function addLog() {
+            if(index >= logs.length) return;
+            
+            const log = logs[index];
+            const div = document.createElement('div');
+            div.className = "mb-2 opacity-0 transform translate-x-2 transition-all duration-300";
+            
+            // Terminal Colors
+            let color = "text-slate-400";
+            if(log.t === 'cmd') color = "text-white font-bold";
+            if(log.t === 'arch') color = "text-blue-400";
+            if(log.t === 'eng') color = "text-purple-400";
+            if(log.t === 'obs') color = "text-emerald-400";
+            if(log.t === 'warn') color = "text-yellow-400";
+            if(log.t === 'success') color = "text-green-300";
+            if(log.t === 'final') color = "text-white bg-green-500/20 px-2 py-1 rounded inline-block border border-green-500/30";
+
+            div.innerHTML = `<span class="${color}">${log.msg}</span>`;
+            termBody.appendChild(div);
+
+            requestAnimationFrame(() => {
+                div.classList.remove('opacity-0', 'translate-x-2');
+                termBody.scrollTop = termBody.scrollHeight;
+            });
+
+            index++;
+            setTimeout(addLog, Math.random() * 400 + 200);
+        }
+
+        setTimeout(addLog, 1000); // Start after 1s
+    </script>
+</body>
+</html>
